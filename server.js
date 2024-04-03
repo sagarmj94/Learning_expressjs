@@ -1,21 +1,15 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const mainRouter = require("./routes/index");
 const PORT = process.env.PORT || 5000;
 
+app.set("view engine", "ejs");
+// app.set("views", path.resolve(__dirname) + "/templates");
+
+console.log(app.get("views"));
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  //   res.send("<h1>Hello From Express</h1>");
-  res.sendFile(path.resolve(__dirname) + "/index.html");
-});
-app.get("/about", (req, res) => {
-  //   res.send("<h1>Hello From Express</h1>");
-  res.sendFile(path.resolve(__dirname) + "/about.html");
-});
-app.get("/download", (req, res) => {
-  //   res.send("<h1>Hello From Express</h1>");
-  res.download(path.resolve(__dirname) + "/about.html");
-});
-
+// app.use("/en", mainRouter);
+app.use(mainRouter);
 app.listen(PORT, () => console.log(`Listening server on Port:${PORT}`));
